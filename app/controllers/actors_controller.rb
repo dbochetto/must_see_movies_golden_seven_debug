@@ -4,44 +4,43 @@ class ActorsController < ApplicationController
   end
 
   def show
-    @actor = Actor.find(params[:id])
+    @actor = Actor.find_by({ :id => params[:id]})
   end
 
   def new_form
   end
 
   def create_row
-    @actor = Actor.new
-    @actor.dob = params[:dob]
-    @actor.name = params[:name]
-    @actor.bio = params[:bio]
-    @actor.image_url = params[:image_url]
+    a = Actor.new
+    a.dob = params[:dob]
+    a.name = params[:name]
+    a.bio = params[:bio]
+    a.image_url = params[:image_url]
+    a.save
 
-    @actor.save
-
-    render("show")
+    redirect_to("http://localhost:3000/actors")
   end
 
   def edit_form
-    @actor = Actor.find(params[:id])
+    @actor = Actor.find_by({ :id => params[:id]})
   end
 
   def update_row
-    @actor = Actor.find(params[:id])
+    a = Actor.find_by({ :id => params[:id]})
+    a.dob = params[:dob]
+    a.name = params[:name]
+    a.bio = params[:bio]
+    a.image_url = params[:image_url]
 
-    @actor.dob = params[:dob]
-    @actor.name = params[:name]
-    @actor.bio = params[:bio]
-    @actor.image_url = params[:image_url]
+    a.save
 
-    @actor.save
-
-    render("show")
+    redirect_to("http://localhost:3000/actors")
   end
 
   def destroy
-    @actor = Actor.find(params[:id])
+    a = Actor.find_by({ :id => params[:id]})
+    a.destroy
 
-    @actor.destroy
+    redirect_to("http://localhost:3000/actors")
   end
 end
